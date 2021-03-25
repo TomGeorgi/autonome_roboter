@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>autonome_roboter</name>
+  <version>0.1.0</version>
+  <description>AuRo meta package which holds packages to run the exercises for the lecuture 'AuRo'</description>
+
+  <maintainer email="Christian.Schmeisser@htwg-konstanz.de">Tom Georgi</maintainer>
+  <maintainer email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">https://github.com/TomGeorgi/AuRo</url>
+
+  <author email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</author>
+  <author email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

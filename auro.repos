@@ -1,0 +1,9 @@
+repositories:
+  husky:
+    type: git
+    url: https://github.com/husky/husky.git
+    version: noetic-devel
+  teleop_twist_joy:
+    type: git
+    url: https://github.com/ros-teleop/teleop_twist_keyboard
+    version: master

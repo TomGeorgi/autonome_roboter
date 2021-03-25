@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="use_sim_time" default="true" />
+    <arg name="debug" default="false" />
+
+    <group if="$(arg use_sim_time)">
+        <param name="/use_sim_time" value="true" />
+    </group>
+
+    <env name="ROSCONSOLE_FORMAT" value="[${severity}] [${time}]: [${message}]" />
+
+</launch>

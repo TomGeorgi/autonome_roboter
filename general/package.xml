@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>general</name>
+  <version>0.1.0</version>
+  <description>Package for general configurations and óther stuff</description>
+
+  <maintainer email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</maintainer>
+  <maintainer email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</maintainer>
+
+  <license>BSD</license>
+
+  <author email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</author>
+  <author email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</author>
+  
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
