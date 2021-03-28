@@ -2,7 +2,9 @@
 
 ROS1 Package for MSI-AS Lecture 'Autonome Roboter'
 
-## Installation
+To setup the workspace, run `./install.sh`.
+
+## Manual installation
 
 First of all you need to install the ros tool `vcstool`:
 
