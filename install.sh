@@ -33,14 +33,17 @@ cd ~/catkin_ws
 catkin init
 cd src
 vcs import ../ < auro.repos
+git clone https://github.com/husky/husky.git
 source /opt/ros/noetic/setup.bash
+cd ..
 catkin build
 source devel/setup.bash
 echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
 # prepare husky environment
-export HUSKY_GAZEBO_DESCRIPTION=$(rospack find husky_gazebo)/urdf/description.gazebo.xacro
+# TODO: export not working yet! husky_gazebo not found!
+#export HUSKY_GAZEBO_DESCRIPTION=$(rospack find husky_gazebo)/urdf/description.gazebo.xacro
 
 echo "done"
 
