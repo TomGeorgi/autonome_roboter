@@ -2,14 +2,13 @@
 
 ROS1 Package for MSI-AS Lecture 'Autonome Roboter'
 
-To setup the workspace, run `./install.sh`.
-
-## Manual installation
+## Prerequisit
 
 First of all you need to install the ros tool `vcstool`:
 
 ```bash
 sudo apt-get install python3-vcstool
+sudo apt-get install python3-pip
 ```
 
 Create your catkin workspace:
@@ -20,6 +19,19 @@ cd ~/catkin_ws
 catkin init
 cd src
 ```
+
+# Installation
+
+Clone this repository into the `src` directory.
+
+Make sure that this repository is your current directory.
+This must be the given for the next steps.
+
+## Automatic installation
+
+To install all dependencies run `./install.sh`.
+
+## Manual installation
 
 Clone all dependend packages with the following command into the `src` folder:
 
@@ -41,7 +53,7 @@ sudo apt install ros-noetic-teleop-twist-joy
 
 export the environment variabl **HUSKY_GAZEBO_DESCRIPTIOn** via:
 
-```
+```bash
 export HUSKY_GAZEBO_DESCRIPTION=$(rospack find husky_gazebo)/urdf/description.gazebo.xacro
 ```
 
