@@ -27,10 +27,12 @@ sudo apt -y install python3-catkin-tools
 sudo apt -y install python3-vcstool
 
 # initialize catkin workspace
-vcs import ../ < auro.repos
 mkdir -p ~/catkin_ws/src
+cp auro.repos ~/catkin_ws/src/
 cd ~/catkin_ws
 catkin init
+cd src
+vcs import ../ < auro.repos
 source /opt/ros/noetic/setup.bash
 catkin build
 source devel/setup.bash
