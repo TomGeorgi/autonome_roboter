@@ -20,6 +20,38 @@ catkin init
 cd src
 ```
 
+**NOTE**:
+
+If you receive the following error:
+
+```bash
+ros@desktop: catkin build 
+Traceback (most recent call last):
+  File "/usr/local/bin/catkin", line 5, in <module>
+    from catkin_tools.commands.catkin import main
+  File "/usr/local/lib/python3.8/dist-packages/catkin_tools/commands/catkin.py", line 28, in <module>
+    from catkin_tools.common import is_tty
+  File "/usr/local/lib/python3.8/dist-packages/catkin_tools/common.py", line 23, in <module>
+    import trollius as asyncio
+  File "/usr/local/lib/python3.8/dist-packages/trollius/init.py", line 21, in <module>
+    from .base_events import *
+  File "/usr/local/lib/python3.8/dist-packages/trollius/base_events.py", line 42, in <module>
+    from . import tasks
+  File "/usr/local/lib/python3.8/dist-packages/trollius/tasks.py", line 565
+    def async(coro_or_future, loop=None):
+        ^
+SyntaxError: invalid syntax
+```
+
+Then type the following commands into your bash:
+
+```bash
+pip3 uninstall catkin_tools
+sudo apt install python3-catkin-tools
+```
+
+You receiving this error due a bug in the catkin_tools package. See https://github.com/catkin/catkin_tools/issues/594.
+
 # Installation
 
 Clone this repository into the `src` directory.
