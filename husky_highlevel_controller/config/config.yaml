@@ -1,0 +1,6 @@
+# Get Scan Topic
+scan_topic: /scan
+
+# Modified Scan
+scan_publisher: /scan_modified
+range_size: 50

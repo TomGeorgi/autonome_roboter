@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>husky_highlevel_controller</name>
+  <version>0.0.0</version>
+  <description>The husky_highlevel_controller package which was created with catkin for exercise 2</description>
+
+
+  <maintainer email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</maintainer>
+  <maintainer email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</maintainer>
+
+  <license>BSD</license>
+
+  <author email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</author>
+  <author email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

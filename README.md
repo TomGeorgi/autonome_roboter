@@ -166,3 +166,7 @@ roslaunch exercise_one exercise_one.launch
 │   └── package.xml
 └── README.md
 ```
+
+## Setup your VS Code
+
+See <https://github.com/RoboGnome/VS_Code_ROS>
