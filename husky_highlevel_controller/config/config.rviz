@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /Marker1
       Splitter Ratio: 0.5
     Tree Height: 1115
   - Class: rviz/Selection
@@ -204,6 +205,14 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: false
       Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /husky_highlevel_controller/visualization_marker
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -232,7 +241,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 12.786458969116211
+      Distance: 16.63044548034668
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -240,17 +249,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.2769794166088104
-        Y: -0.8389918208122253
-        Z: 0.05177726596593857
+        X: 5.671982765197754
+        Y: 1.895198106765747
+        Z: -0.9124131202697754
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.1003978252410889
+      Pitch: 0.8097967505455017
       Target Frame: <Fixed Frame>
-      Yaw: 0.3703981041908264
+      Yaw: 4.128549098968506
     Saved: ~
 Window Geometry:
   Displays:

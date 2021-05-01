@@ -4,3 +4,12 @@ scan_topic: /scan
 # Modified Scan
 scan_publisher: /scan_modified
 range_size: 50
+
+# CMD Vel
+cmd_vel_topic: /cmd_vel
+linear_x: 1.0
+linear_y: 1.0
+angular_z: 0.0
+
+# P-Controller
+kp_param: 0.6
