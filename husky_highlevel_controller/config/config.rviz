@@ -7,6 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /Marker1
+        - /Marker2
       Splitter Ratio: 0.5
     Tree Height: 1115
   - Class: rviz/Selection
@@ -207,7 +208,15 @@ Visualization Manager:
       Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: /husky_highlevel_controller/visualization_marker
+      Marker Topic: /husky_drive_server/visualization_marker
+      Name: Marker
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /husky_laser_controller/visualization_marker
       Name: Marker
       Namespaces:
         "": true
@@ -241,7 +250,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 16.63044548034668
+      Distance: 5.100131511688232
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -249,17 +258,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 5.671982765197754
-        Y: 1.895198106765747
-        Z: -0.9124131202697754
+        X: 11.568426132202148
+        Y: 0.8047974109649658
+        Z: 4.896242618560791
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.8097967505455017
+      Pitch: 0.6297975182533264
       Target Frame: <Fixed Frame>
-      Yaw: 4.128549098968506
+      Yaw: 5.803553104400635
     Saved: ~
 Window Geometry:
   Displays:

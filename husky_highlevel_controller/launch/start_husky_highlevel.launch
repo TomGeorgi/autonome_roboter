@@ -18,8 +18,14 @@
         <arg name="laser_enabled" value="true" />
     </include>
 
-    <!-- Launch Husky Highlevel Node -->
-    <node name="husky_highlevel_controller" pkg="husky_highlevel_controller" type="husky_highlevel_controller" output="screen">
+    <!-- Launch Husky Highlevel Drive Server Node -->
+    <node name="husky_drive_server" pkg="husky_highlevel_controller" type="husky_drive_server" output="screen">
+        <!-- Load config file to the parameter server -->
+        <rosparam command="load" file="$(find husky_highlevel_controller)/config/config.yaml" />
+    </node>
+
+    <!-- Launch Husky Highlevel Laser Controller Node -->
+    <node name="husky_laser_controller" pkg="husky_highlevel_controller" type="husky_laser_controller" output="screen">
         <!-- Load config file to the parameter server -->
         <rosparam command="load" file="$(find husky_highlevel_controller)/config/config.yaml" />
     </node>

@@ -10,7 +10,9 @@ add_definitions(--std=c++11)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  actionlib_msgs
   std_msgs
+  std_srvs
   sensor_msgs
   geometry_msgs
   visualization_msgs
@@ -20,18 +22,22 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 ################################################
 ## Declare ROS messages, services and actions ##
 ################################################
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  PillarPose.msg
+)
+
+add_action_files(
+  FILES
+  HuskyDrive.action
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -46,6 +52,14 @@ find_package(catkin REQUIRED COMPONENTS
 #   Action1.action
 #   Action2.action
 # )
+
+generate_messages(
+  DEPENDENCIES
+  actionlib_msgs
+  geometry_msgs
+  sensor_msgs
+  std_srvs
+)
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
@@ -72,6 +86,7 @@ catkin_package(
     std_msgs
     sensor_msgs
     geometry_msgs
+    std_srvs
     visualization_msgs
     tf
     tf2
@@ -88,6 +103,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -98,17 +114,37 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME} 
-  src/${PROJECT_NAME}_node.cpp
-  src/HuskyHighlevelController.cpp
+add_executable(husky_drive_server
+  src/husky_drive_server_node.cpp
+  src/HuskyDriveActionServer.cpp
   src/Algorithm.cpp
 )
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
+
+add_executable(husky_laser_controller
+  src/husky_laser_controller_node.cpp
+  src/HuskyLaserController.cpp
+  src/Algorithm.cpp
+)
+
+target_compile_features(husky_drive_server INTERFACE cxx_std_11)
+target_compile_features(husky_laser_controller INTERFACE cxx_std_11)
+
+add_dependencies(husky_drive_server ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(husky_laser_controller ${PROJECT_NAME}_generate_messages_cpp)
 
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(husky_drive_server
   ${catkin_LIBRARIES}
+)
+
+target_link_libraries(husky_laser_controller
+  ${catkin_LIBRARIES}
+)
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
 )
 
 #############
