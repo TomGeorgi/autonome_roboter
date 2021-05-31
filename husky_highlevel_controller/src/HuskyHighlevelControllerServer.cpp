@@ -1,9 +1,9 @@
-#include "husky_highlevel_controller/HuskyDriveActionServer.hpp"
+#include "husky_highlevel_controller/HuskyHighlevelControllerServer.hpp"
 
 namespace husky_highlevel_controller
 {
-    HuskyDriveActionServer::HuskyDriveActionServer(ros::NodeHandle &nh)
-        : nh_(nh), as_("husky_drive_action", boost::bind(&HuskyDriveActionServer::executeCB, this, _1), false)
+    HuskyHighlevelControllerServer::HuskyHighlevelControllerServer(ros::NodeHandle &nh)
+        : nh_(nh), as_("husky_drive_action", boost::bind(&HuskyHighlevelControllerServer::executeCB, this, _1), false)
     {
         if (!readParameters())
         {
@@ -13,20 +13,20 @@ namespace husky_highlevel_controller
 
         cmd_vel_publisher_ = nh_.advertise<geometry_msgs::Twist>(cmd_vel_topic_, 10);
 
-        vis_publisher_ = nh_.advertise<visualization_msgs::Marker>("visualization_marker", 0);
+        pillar_pose_subscriber_ = nh_.subscribe("pillar_pose", 1, &HuskyHighlevelControllerServer::pillarPoseCallback, this);
 
-        read_parameter_server_service_ = nh_.advertiseService("read_parameters", &HuskyDriveActionServer::readParametersServiceCB, this);
+        read_parameter_server_service_ = nh_.advertiseService("read_parameters", &HuskyHighlevelControllerServer::readParametersServiceCB, this);
 
-        as_.registerPreemptCallback(boost::bind(&HuskyDriveActionServer::preemptCB, this));
+        as_.registerPreemptCallback(boost::bind(&HuskyHighlevelControllerServer::preemptCB, this));
         as_.start();
     }
 
-    HuskyDriveActionServer::~HuskyDriveActionServer()
+    HuskyHighlevelControllerServer::~HuskyHighlevelControllerServer()
     {
         as_.shutdown();
     }
 
-    bool HuskyDriveActionServer::readParameters()
+    bool HuskyHighlevelControllerServer::readParameters()
     {
         if (!nh_.getParam("cmd_vel_topic", cmd_vel_topic_))
             return false;
@@ -41,16 +41,22 @@ namespace husky_highlevel_controller
         return true;
     }
 
-    bool HuskyDriveActionServer::readParametersServiceCB(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)
+    bool HuskyHighlevelControllerServer::readParametersServiceCB(std_srvs::Empty::Request &req, std_srvs::Empty::Response &res)
     {
         ROS_INFO("Reading parameters from param server");
         return readParameters();
     }
 
-    void HuskyDriveActionServer::executeCB(const husky_highlevel_controller::HuskyDriveGoalConstPtr &goal)
+    void HuskyHighlevelControllerServer::pillarPoseCallback(const husky_highlevel_controller::PillarPose &pillar_pose)
     {
+        pillar_pose_ = pillar_pose;
+    }
+
+    void HuskyHighlevelControllerServer::executeCB(const husky_highlevel_controller::HuskyDriveGoalConstPtr &goal)
+    {
+        min_distance_ = goal->min_distance;
         geometry_msgs::Twist new_cmd_vel;
-        geometry_msgs::Pose pose;
+        /*geometry_msgs::Pose pose;
         double angle = goal->pillar_pose.angle;
         double distance = goal->pillar_pose.distance;
 
@@ -77,26 +83,31 @@ namespace husky_highlevel_controller
         marker.pose = pose;
 
         vis_publisher_.publish(marker);
-
-        algorithm_.calculatePRatio(cmd_vel_, kp_param_, angle, new_cmd_vel);
-        cmd_vel_ = new_cmd_vel;
-
-        if (goal->pillar_pose.distance < 0.2)
+        */
+        int feedback_size = 100;
+        while (pillar_pose_.distance > min_distance_)
         {
-            new_cmd_vel.angular.z = 0;
-            new_cmd_vel.linear.x = 0;
-            new_cmd_vel.linear.y = 0;
-            cmd_vel_publisher_.publish(new_cmd_vel);
-            as_.setAborted(result_);
-        }
-        else
-        {
+            algorithm_.calculatePRatio(cmd_vel_, kp_param_, pillar_pose_.angle, new_cmd_vel);
+            cmd_vel_ = new_cmd_vel;
+
+            feedback_.distance = pillar_pose_.distance;
+            if (feedback_size <= 0)
+            {
+                as_.publishFeedback(feedback_);
+                feedback_size = 100;
+            }
+            feedback_size--;
             cmd_vel_publisher_.publish(cmd_vel_);
-            as_.setSucceeded(result_);
         }
+
+        new_cmd_vel.angular.z = 0;
+        new_cmd_vel.linear.x = 0;
+        new_cmd_vel.linear.y = 0;
+        cmd_vel_publisher_.publish(cmd_vel_);
+        as_.setSucceeded(result_);
     }
 
-    void HuskyDriveActionServer::preemptCB()
+    void HuskyHighlevelControllerServer::preemptCB()
     {
         ROS_WARN("Husky Drive Action: Preempted");
 

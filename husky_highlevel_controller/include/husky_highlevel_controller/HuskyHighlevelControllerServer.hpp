@@ -19,12 +19,13 @@
 #include <visualization_msgs/Marker.h>
 
 #include <husky_highlevel_controller/HuskyDriveAction.h>
+#include <husky_highlevel_controller/PillarPose.h>
 
 #include "husky_highlevel_controller/Algorithm.hpp"
 
 namespace husky_highlevel_controller
 {
-    class HuskyDriveActionServer
+    class HuskyHighlevelControllerServer
     {
     private:
         // ROS node handle.
@@ -46,8 +47,8 @@ namespace husky_highlevel_controller
         // ROS publisher of a twist message
         ros::Publisher cmd_vel_publisher_;
 
-        // ROS publisher of a marker message
-        ros::Publisher vis_publisher_;
+        // ROS subscriber of custom message 'PillarPose'
+        ros::Subscriber pillar_pose_subscriber_;
 
         // ROS Service to re-read parameters
         ros::ServiceServer read_parameter_server_service_;
@@ -68,6 +69,10 @@ namespace husky_highlevel_controller
 
         // Parameter for start value of angular z velocity
         double angular_z_;
+
+        husky_highlevel_controller::PillarPose pillar_pose_;
+
+        double min_distance_;
 
         // Algorithm object.
         Algorithm algorithm_;
@@ -99,19 +104,26 @@ namespace husky_highlevel_controller
          */
         void publishCmdVel(const geometry_msgs::Twist &vel);
 
+        /**
+         * @brief pillar pose callback method
+         * 
+         * @param pillar_pose pillar pose message
+         */
+        void pillarPoseCallback(const husky_highlevel_controller::PillarPose &pillar_pose);
+
     public:
         /**
-         * @brief Construct a new Husky Drive Action Server object
+         * @brief Construct a new Husky Highlevel Controller Action Server object
          * 
          * @param nh 
          */
-        HuskyDriveActionServer(ros::NodeHandle &nh);
+        HuskyHighlevelControllerServer(ros::NodeHandle &nh);
 
         /**
-         * @brief Destroy the Husky Drive Action Server object
+         * @brief Destroy the Husky Highlevel Controller Action Server object
          * 
          */
-        virtual ~HuskyDriveActionServer();
+        virtual ~HuskyHighlevelControllerServer();
 
         /**
          * @brief Execute Callback on new Goal

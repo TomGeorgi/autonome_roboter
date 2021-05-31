@@ -18,9 +18,6 @@
 #include <std_srvs/Empty.h>
 #include <visualization_msgs/Marker.h>
 
-#include <actionlib/client/simple_action_client.h>
-#include <actionlib/client/terminal_state.h>
-
 #include <husky_highlevel_controller/HuskyDriveAction.h>
 
 #include "husky_highlevel_controller/Algorithm.hpp"
@@ -31,14 +28,11 @@ namespace husky_highlevel_controller
      * @brief HuskyLaserController Class is there to handle the Laser tasks.
      * 
      */
-    class HuskyLaserController
+    class HuskyHighlevelLaserController
     {
     private:
         // ROS node handle
         ros::NodeHandle nh_;
-
-        // ROS Action client
-        actionlib::SimpleActionClient<husky_highlevel_controller::HuskyDriveAction> ac_;
 
         // ROS subscriber of scan topic
         ros::Subscriber scan_subscriber_;
@@ -49,11 +43,8 @@ namespace husky_highlevel_controller
         // ROS publisher of a marker message
         ros::Publisher vis_publisher_;
 
-        // ROS service to start drive server
-        ros::ServiceServer start_drive_service_;
-
-        // ROS service tostop drive server
-        ros::ServiceServer stop_drive_service_;
+        // ROS publisher of a pillarpose message
+        ros::Publisher pillar_pose_publisher_;
 
         // Name of the scan topic which should be subscribed
         std::string scan_topic_;
@@ -64,17 +55,14 @@ namespace husky_highlevel_controller
         // Number of scan points in LaserScan message.
         double range_size_;
 
+        // TF2 Buffer
+        tf2_ros::Buffer tf_buffer_;
+
+        // TF2 Transform Listener
+        tf2_ros::TransformListener tf_listener_;
+
         // Algorithm object.
         Algorithm algorithm_;
-
-        // Bool for drive or not
-        bool drive_;
-
-        // Angle
-        double angle_;
-
-        // Minimal Distance
-        double min_val_;
 
         /**
          * @brief read parameters of from the ROS Parameter Server.
@@ -83,28 +71,6 @@ namespace husky_highlevel_controller
          * @return false, a parameter couldn't be read.
          */
         bool readParameters();
-
-        /**
-         * @brief Service Callback to start drive.
-         * 
-         * @param req Empty request
-         * @param res Empty response
-         * @return true service finished successfully 
-         * @return false service finished unsuccessfully
-         */
-        bool startDriveCB(std_srvs::Empty::Request &req,
-                          std_srvs::Empty::Response &res);
-
-        /**
-         * @brief Service Callback to stop drive.
-         * 
-         * @param req Empty request
-         * @param res Empty response
-         * @return true service finished successfully 
-         * @return false service finished unsuccessfully
-         */
-        bool stopDriveCB(std_srvs::Empty::Request &req,
-                         std_srvs::Empty::Response &res);
 
         /**
          * @brief Callback Function for the scan_topic.
@@ -123,39 +89,22 @@ namespace husky_highlevel_controller
         void publishScans(const sensor_msgs::LaserScan &scan,
                           int closest_index, double min_val);
 
-        /**
-         * @brief Server Active Callback Method.
-         * 
-         */
-        void serverActiveCB();
-
-        /**
-         * @brief Callback method will be called when action server is in a done state.
-         * 
-         * @param state Action State
-         * @param result Result
-         */
-        void serverDoneCB(const actionlib::SimpleClientGoalState &state,
-                          const husky_highlevel_controller::HuskyDriveResultConstPtr &result);
-
-        /**
-         * @brief Drive Robot.
-         * 
-         */
-        void drive();
+        void publishMarker(const double x, const double y,
+                           const std::string frame_id,
+                           const std::string frame_id_to_transform);
 
     public:
         /**
-         * @brief Construct a new Husky Laser Controller object
+         * @brief Construct a new Husky Highlevel Laser Controller object
          * 
          * @param nh ROS NodeHandle object
          */
-        HuskyLaserController(ros::NodeHandle &nh);
+        HuskyHighlevelLaserController(ros::NodeHandle &nh);
 
         /**
-         * @brief Destroy the Husky Laser Controller object
+         * @brief Destroy the Husky Highlevel Laser Controller object
          * 
          */
-        virtual ~HuskyLaserController();
+        virtual ~HuskyHighlevelLaserController();
     };
 } // namespace husky_highlevel_controller

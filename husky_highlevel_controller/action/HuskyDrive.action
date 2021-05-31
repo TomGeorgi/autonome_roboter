@@ -1,6 +1,7 @@
 # goal definition
-PillarPose pillar_pose
+float64 min_distance
 ---
 # result definition
 ---
 # feedback
+float64 distance

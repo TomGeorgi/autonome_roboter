@@ -33,12 +33,6 @@ namespace husky_highlevel_controller
   class Algorithm
   {
   private:
-    // TF2 Buffer
-    tf2_ros::Buffer tf_buffer_;
-
-    // TF2 Transform Listener
-    tf2_ros::TransformListener tf_listener_;
-
   public:
     /**
      * @brief Construct a new Algorithm object
@@ -80,35 +74,5 @@ namespace husky_highlevel_controller
      * @param new_cmd_vel new cmd vel message
      */
     void calculatePRatio(const geometry_msgs::Twist &old_cmd_vel, const double kp, double angle, geometry_msgs::Twist &new_cmd_vel);
-
-    /**
-     * @brief Create a Marker object
-     * 
-     * @param x x position
-     * @param y y poistion
-     * @param frame_id frame_id of marker
-     * @param marker_id marker_id
-     * @param marker_color color of marker
-     * @return visualization_msgs::Marker marker object
-     */
-    visualization_msgs::Marker createMarker(const double x, const double y,
-                                            const std::string frame_id,
-                                            const int marker_id,
-                                            const std_msgs::ColorRGBA marker_color);
-
-    /**
-     * @brief Transform Pose
-     * 
-     * @param src source pose
-     * @param dest destination pose
-     * @param src_frame_id source frame id
-     * @param dest_frame_id destination frame id
-     * @return true success
-     * @return false failed
-     */
-    bool transformPose(const geometry_msgs::Pose src,
-                       geometry_msgs::Pose dest,
-                       const std::string src_frame_id,
-                       const std::string dest_frame_id);
   };
 } // namespace husky_highlevel_controller

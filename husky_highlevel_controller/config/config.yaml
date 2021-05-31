@@ -13,3 +13,6 @@ angular_z: 0.0
 
 # P-Controller
 kp_param: 0.6
+
+# min distance to pillar pose
+min_distance: 1.0

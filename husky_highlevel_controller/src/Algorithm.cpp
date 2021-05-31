@@ -3,7 +3,6 @@
 namespace husky_highlevel_controller
 {
   Algorithm::Algorithm()
-      : tf_listener_(tf_buffer_)
   {
   }
 
@@ -65,55 +64,4 @@ namespace husky_highlevel_controller
     // new_cmd_vel.linear.y = old_cmd_vel.linear.y;
     new_cmd_vel.angular.z = kp * angle;
   }
-
-  visualization_msgs::Marker Algorithm::createMarker(const double x, const double y,
-                                                     const std::string frame_id,
-                                                     const int marker_id,
-                                                     const std_msgs::ColorRGBA marker_color)
-  {
-    visualization_msgs::Marker marker;
-    geometry_msgs::Pose pose;
-    geometry_msgs::TransformStamped transfrom_stamped;
-
-    // Create Marker in 'frame_id' frame
-    pose.position.x = x;
-    pose.position.y = y;
-    pose.position.z = -1.5;
-    pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, -M_PI_2, 0);
-
-    marker.header.frame_id = frame_id;
-    marker.header.stamp = ros::Time();
-    marker.id = marker_id;
-    marker.type = visualization_msgs::Marker::ARROW;
-    marker.action = visualization_msgs::Marker::ADD;
-    marker.pose = pose;
-    marker.scale.x = 1;
-    marker.scale.y = 0.1;
-    marker.scale.z = 0.1;
-    marker.color = marker_color;
-
-    return marker;
-  }
-
-  bool Algorithm::transformPose(const geometry_msgs::Pose src,
-                                geometry_msgs::Pose dest,
-                                const std::string src_frame_id,
-                                const std::string dest_frame_id)
-  {
-    geometry_msgs::TransformStamped transform_stamped;
-
-    try
-    {
-      transform_stamped = tf_buffer_.lookupTransform(dest_frame_id, src_frame_id, ros::Time(0));
-      tf2::doTransform(src, dest, transform_stamped);
-    }
-    catch (const std::exception &e)
-    {
-      ROS_ERROR("%s", e.what());
-      return false;
-    }
-
-    return true;
-  }
-
 } // namespace husky_highlevel_controller

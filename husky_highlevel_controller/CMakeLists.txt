@@ -114,31 +114,31 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(husky_drive_server
-  src/husky_drive_server_node.cpp
-  src/HuskyDriveActionServer.cpp
+add_executable(husky_highlevel_controller_client
+  src/husky_highlevel_controller_client_node.cpp
+  src/HuskyHighlevelControllerClient.cpp
+)
+
+add_executable(husky_highlevel_controller_server
+  src/husky_highlevel_controller_server_node.cpp
+  src/HuskyHighlevelControllerServer.cpp
+  src/HuskyHighlevelLaserController.cpp
   src/Algorithm.cpp
 )
 
-add_executable(husky_laser_controller
-  src/husky_laser_controller_node.cpp
-  src/HuskyLaserController.cpp
-  src/Algorithm.cpp
-)
+target_compile_features(husky_highlevel_controller_client INTERFACE cxx_std_11)
+target_compile_features(husky_highlevel_controller_server INTERFACE cxx_std_11)
 
-target_compile_features(husky_drive_server INTERFACE cxx_std_11)
-target_compile_features(husky_laser_controller INTERFACE cxx_std_11)
-
-add_dependencies(husky_drive_server ${PROJECT_NAME}_generate_messages_cpp)
-add_dependencies(husky_laser_controller ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(husky_highlevel_controller_client ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(husky_highlevel_controller_server ${PROJECT_NAME}_generate_messages_cpp)
 
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(husky_drive_server
+target_link_libraries(husky_highlevel_controller_client
   ${catkin_LIBRARIES}
 )
 
-target_link_libraries(husky_laser_controller
+target_link_libraries(husky_highlevel_controller_server
   ${catkin_LIBRARIES}
 )
 
