@@ -15,11 +15,17 @@ sudo apt -y install python3-pip
 sudo apt -y install ros-noetic-desktop-full
 sudo apt -y install ros-noetic-lms1xx
 sudo apt -y install ros-noetic-velodyne-description
-sudo apt -y install ros-noetic-twist-mus
+sudo apt -y install ros-noetic-twist-mux
 sudo apt -y install ros-noetic-interactive-marker-twist-server
 sudo apt -y install ros-noetic-robot-localization
 sudo apt -y install ros-noetic-joy
 sudo apt -y install ros-noetic-teleop-twist-joy
+sudo apt -y install ros-noetic-gmapping
+sudo apt -y install ros-noetic-amcl
+sudo apt -y install ros-noetic-move-base
+sudo apt -y install ros-noetic-rviz-imu-plugin
+sudo apt -y install ros-noetic-map-server
+sudo apt -y install ros-noetic-dwa-local-planner
 
 # install toolchain
 sudo apt -y install python3-catkin-tools

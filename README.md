@@ -81,12 +81,24 @@ sudo apt install ros-noetic-interactive-marker-twist-server
 sudo apt install ros-noetic-robot-localization
 sudo apt install ros-noetic-joy
 sudo apt install ros-noetic-teleop-twist-joy
+sudo apt install ros-noetic-gmapping
+sudo apt install ros-noetic-amcl
+sudo apt install ros-noetic-move-base
+sudo apt install ros-noetic-rviz-imu-plugin
+sudo apt install ros-noetic-map-server
+sudo apt install ros-noetic-dwa-local-planner
 ```
 
-export the environment variabl **HUSKY_GAZEBO_DESCRIPTIOn** via:
+export the environment variabl **HUSKY_GAZEBO_DESCRIPTION** via:
 
 ```bash
 export HUSKY_GAZEBO_DESCRIPTION=$(rospack find husky_gazebo)/urdf/description.gazebo.xacro
+```
+
+For exercise 5 it's important to set the laser scan manually for gmapping via:
+
+```bash
+export HUSKY_LASER_LMS1XX_ENABLED=1
 ```
 
 ## Setup your .bashrc
@@ -104,6 +116,7 @@ auro() {
   source /opt/ros/noetic/setup.bash
   source ~/catkin_ws/devel/setup.bash
   export HUSKY_GAZEBO_DESCRIPTION=$(rospack find husky_gazebo)/urdf/description.gazebo.xacro
+  export HUSKY_LASER_LMS1XX_ENABLED=1
 }
 
 # create aliases

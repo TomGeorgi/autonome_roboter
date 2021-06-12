@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="laser_enabled" default="$(optenv HUSKY_LASER_LMS1XX_ENABLED 1)"/>
+
+    <arg name="scan_topic" default="scan" />
+
+    <arg name="world" default="office_world"/>
+    <arg name="map_file" default="$(find husky_slam_and_navigation)/map/$(arg world).yaml" />
+
+    <include file="$(find general)/launch/general.launch" />
+
+    <include file="$(find cpr_office_gazebo)/launch/office_world.launch">
+        <arg name="platform" value="husky" />
+    </include>
+
+    <include file="$(find husky_viz)/launch/view_robot.launch" />
+
+    <include file="$(find husky_navigation)/launch/gmapping.launch" />
+
+</launch>

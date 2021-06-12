@@ -1,3 +1,14 @@
+/**
+ * @file HuskyHighlevelControllerClient.hpp
+ * @author Tom Georgi (Tom.Georgi@htwg-konstanz.de)
+ * @author Christian Schmeisser (Christian.Schmeißer@htwg-konstanz.de)
+ * @brief Contsins the HuskyHighlevelControllerClient
+ * @version 0.1
+ * @date 2021-06-12
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 #pragma once
 
 #include <actionlib/client/simple_action_client.h>

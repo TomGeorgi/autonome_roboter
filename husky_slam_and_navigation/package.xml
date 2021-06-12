@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>husky_slam_and_navigation</name>
+  <version>0.1.0</version>
+  <description>The husky_slam_and_navigation package for exercise 5</description>
+
+  <maintainer email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</maintainer>
+  <maintainer email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</maintainer>
+
+  <license>BSD</license>
+
+  <author email="Tom.Georgi@htwg-konstanz.de">Tom Georgi</author>
+  <author email="Christian.Schmeisser@htwg-konstanz.de">Christian Schmeisser</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>roscpp</depend>
+  <depend>tf</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+  <depend>std_srvs</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
